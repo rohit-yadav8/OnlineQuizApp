@@ -1,14 +1,14 @@
-# Use official Tomcat 9 image with JDK 17
-FROM tomcat:9.0.104-jdk17
+# Use official Tomcat server image with Java 11
+FROM tomcat:9.0-jdk11
 
-# Remove default ROOT app (optional but clean)
-RUN rm -rf /usr/local/tomcat/webapps/ROOT
+# Remove all default webapps inside Tomcat (optional but cleaner)
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy your WAR file and rename it to ROOT.war
+# Copy your WAR file into Tomcat's webapps directory
 COPY QuizApplication1.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expose port 8080
+# Expose port 8080 so Render knows where to serve your app
 EXPOSE 8080
 
-# Start Tomcat
+# Start the Tomcat server
 CMD ["catalina.sh", "run"]
